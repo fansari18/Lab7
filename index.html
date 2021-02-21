@@ -84,7 +84,16 @@
       // The main difference from fetchOne() will be the URL you request from; check
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchAll() {
-        // TODO
+        fetch( 'http://localhost:3000/posts')
+        .then(res => {
+          if(res.ok){
+          console.log('SUCCESS')
+        } else {
+          cosole.log("Not Successful")
+        }
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log('ERROR'))
       }
 
       // This function should fetch one entry from the given endpoint.
@@ -92,24 +101,69 @@
       // The main difference from fetchAll() will be the URL you request from; check
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchOne() {
-        // TODO
+        let id = prompt("enter Id");
+        fetch( 'http://localhost:3000/posts'+ id)
+        .then(res => {
+          if(res.ok){
+          console.log('SUCCESS')
+        } else {
+          cosole.log("Not Successful")
+        }
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log('ERROR'))
       }
+
+    
 
       // This function should use fetch to create one entry in the given endpoint.
       // From the 4 CRUD actions, this is the CREATE action, and uses the POST http method.
       // The main difference from updateRecord() will be the URL you send data to; check
       // the writeup to view the URL pattern for create and update
       function createRecord() {
-        // TODO
-      }
+        var authorid = document.getElementById('author');
+        var titleid = document.getElementById('title');
 
+
+        fetch('http://localhost:3000/posts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            author: authorid,
+            title: titleid
+          })
+        }).then(res => {
+          return res.json()
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log('ERROR'))
+      }
+        
       // This function should use fetch to update one existing entry in the given endpoint.
       // From the 4 CRUD actions, this is the UPDATE action, and uses the PUT http method.
       // The main difference from createRecord() will be the URL you send data to; check
       // the writeup to view the URL pattern for create and update
       function updateRecord() {
-        // TODO
-      }
+        var authorid = document.getElementById('author');
+        var titleid = document.getElementById('title');
+
+
+        fetch('http://localhost:3000/posts', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            author: authorid,
+            title: titleid
+          })
+        }).then(res => {
+          return res.json()
+        })
+        .then(data => console.log(data))
+        .catch(error => console.log('ERROR'))      }
 
       // This function should use fetch to delete one existing entry in the given endpoint.
       // From the 4 CRUD actions, this is the DELETE action, and uses the DELETE http method.
@@ -117,8 +171,13 @@
       // request; check the writeup to view the URL pattern for get one and delete. THERE IS NO 
       // delete all, only delete one.
       function deleteRecord() {
-        // TODO
-      }
+        let id = prompt("enter Id");
+
+        fetch('https://example.com/delete-item/' + id, {
+           method: 'DELETE',
+            })
+          .then(res => res.json()) 
+          .then(res => console.log(res))      }
 
       window.addEventListener('DOMContentLoaded', () => {
         // Action Form Event Listener
